@@ -1,0 +1,20 @@
+import network
+import espnow
+
+# Configuración de Wi-Fi en modo estación
+wlan = network.WLAN(network.STA_IF)
+wlan.active(True)
+
+# Inicializar ESP-NOW
+e = espnow.ESPNow()
+e.init()
+
+# Aceptar mensajes de cualquier emisor
+e.on_recv(lambda sender_mac, msg: print(f"Mensaje recibido de {sender_mac}: {msg}"))
+
+print("Receptor esperando mensajes...")
+try:
+    while True:
+        pass  # Mantener el receptor activo
+except KeyboardInterrupt:
+    print("Finalizando...")
